@@ -41,6 +41,7 @@ git clone https://bitbucket.org/nuttx/tools.git
 
 So our current directory structure will look like:
 
+```
 Nuttx_Glob
 |
 |----- nuttx
@@ -48,6 +49,7 @@ Nuttx_Glob
 |----- apps
 |
 |----- tools
+```
 
 Once we have globbed the nuttx we want it is a good idea to create a development branch for the work we are going to be doing within nuttx.
 

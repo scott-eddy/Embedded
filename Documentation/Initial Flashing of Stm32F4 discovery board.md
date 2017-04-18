@@ -84,4 +84,6 @@ cd ..
 ```
 
 
-
+## What Just happened?
+All of the configuration that was just flashed to the board can be found in 
+[Initial Flash Configuration Explained.md](Initial\ Flash\ Configuration\ Explained.md)

@@ -90,9 +90,25 @@ cd ..
 make menuconfig
 ```
 
-When you start menu config you should see 
+When you start menu config you should see: 
 ![](images/MenuConfigStart.png?raw=true)
 
+By default the Build Setup host platform is defined to be Windows, change it to be (in this case)
+MacOsx by navigating:
+`Build Setup --> Build host Platform -->  OSX`
+
+After that change save your configuration file as `.config` and exit to the terminal
+Note: the makefile of NuttX will be referencing this name so do not alter it
+
+Finally create the NuttX binary with 
+`make`
+
+This will have generated a file called nuttx, which is an ELF file and can be flashed via SWD / JTAG, 
+which is built onboard the miniUSB on the discovery board
+
+On successful exit of make you will have a binary file nuttx.bin which can be flashed to the discovery
+board with:
+`st-flash write nuttx.bin 0x8000000`
 
 ## What Just happened?
 All of the configuration that was just flashed to the board can be found in 

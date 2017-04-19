@@ -58,10 +58,14 @@ cd nuttx
 git checkout -b devel/scott-eddy
 ```
 ### Building some tools dependencies for the flash
+## kconfig-frontends
+NOTE: this setp only needs to be performed once
 
-We will be using the menuconfig make target to flash the board. This requires some additional steps. First we need to build kconfig which is located in `NuttX_Glob/tools/kconfig.` As I am building on Mac OSX I will need to update kconfig with a patch located in the file
+We will be using the menuconfig make target to flash the board. This requires some additional steps. First we need to build kconfig which is located in `NuttX_Glob/tools/kconfig-frontends` As I am building on Mac OSX I will need to update kconfig with a patch located in the file
 
 ```
+cd ../tools/kconfig-frontends/
+
 ./configure --disable-shared --enable-static --disable-gconf --disable-qconf --disable-nconf --disable-utils
 make
 make install
@@ -72,7 +76,7 @@ make install
 Now we are ready to start building the image.  We begin by stetting up configuration 
 
 ```
-cd tools
+cd NuttX_Glob/nuttx/tools
 
 # this step will not provide any output, but copy the configuration to
 # nuttx-git/nuttx/.config
@@ -81,7 +85,13 @@ cd tools
 
 # finally exit out of tools
 cd ..
+
+# In the nuttx root directory start menuconfig
+make menuconfig
 ```
+
+When you start menu config you should see 
+![](images/MenuConfigStart.png?raw=true)
 
 
 ## What Just happened?

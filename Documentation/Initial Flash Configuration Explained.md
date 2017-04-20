@@ -251,4 +251,216 @@ If the interrupt stack is selected, on the other hand, then the interrupt handle
 
 45. `CONFIG_DISABLE_OS_API=y` # Disable NuttX interfaces
 
-46. 
+46. `CONFIG_ARCH_HAVE_TICKLESS=y` # Set by the board selection not necessarily used
+
+47. `CONFIG_USEC_PER_TICK=10000` # In our configuration where system time is provided by a periodic timer interrupt, the default system
+                                <br> timer is expected to run at 100Hz or USEC_PER_TICK=10000.  This setting must be defined to inform
+                                <br> NuttX the interval that the processor hardware is providing the system timer interrupts to the OS
+
+48. `CONFIG_ARCH_HAVE_TIMEKEEPING=y` # Set by the board selection, not necessarily used
+
+49. `CONFIG_START_YEAR=2013` # NuttX uses an unsigned 32-bit integer for time_t which provides a range from 1970 to 2106
+
+50. `CONFIG_START_MONTH=1` # System starts in Jan
+
+51. `CONFIG_START_DAY=27` # System starts on the 27
+
+52. `CONFIG_MAX_WDOGPARMS=2` # Maximum number of parameters that can be passed to a watchdog handler
+
+52. `CONFIG_PREALLOC_WDOGS=8` # The number of pre-allocated watchdog structures.  The system manages a pool of watchdog structures to
+                    <br> minimize dynamic allocations.  Dynamic allocations will still be made if this pool is exhausted.
+                    <br> You will, however, get better performance and memory usage if this value is tuned to minimize such allocations
+
+53. `CONFIG_WDOG_INTRESERVE=1` # Watchdog structures reserved for interrupt handlers.  Watchdog structures may be allocated from normal
+                <br> task and alo from interrupt handlers.  Interrupt handlers, however, can only use pre-allocated watchdog structures
+                <br> Therefore, in order to keep normal task allocations from exhausting all watchdog structures, a small number of 
+                <br> pre-allocated watchdog timers must be reserved for exclusive use by interrupt handlers.  
+
+54. `CONFIG_PREALLOC_TIMERS=4` # Number of pre-allocated POSIX timer structures.  The system manages a pool of preallocated timer
+                <br> structures to minimize dynamic allocations.
+
+55. `CONFIG_INIT_ENTRYPOINT=y` # Set based on not building the kernel
+
+56. `CONFIG_USER_ENTRYPOINT="nsh_main"` # The name of the entry point for user applications
+
+57. `CONFIG_RR_INTERVAL=200` # Round robin timeslice \[Millisecond\]. The round robin timeslice will be set this number of milliseconds.
+                        <br> Round roben scheduling (SCHED_RR) is enabled by setting this interval to a positive non-zero value
+
+58. `CONFIG_TASK_NAME_SIZE=31` # Maximum size of a task name to save in the TCB.  Useful if scheduler instrumentation is selected.
+                            <br> Excludes the NUL terminator; the actual allocated size will be TASK_NAME_SIZE+1, therefore
+                            <br> the default value of 31 results in an align-able 32 byte allocation
+
+59. `CONFIG_MAX_TASKS=16` # The maximum number of simultaneously active tasks.  This value must be a power of two
+
+60. `CONFIG_SCHED_WAITPID=y` # Enables the waitpid() interface in a default, non-standard mode.  Non-standard in the sense that
+                        <br> the waited for PID need not be child of the caller.  IF SCHED_HAVE_PARENT is also defined, then 
+                        <br> this setting will modify the behavior of waitpid() making it more specification compiant and will
+                        <br> enable the waitid() and wait() interfaces as well
+
+61. `CONFIG_PTHREAD_MUTEX_ROBUST=y` # TODO this is undocumented
+
+62. `CONFIG_NPTHREAD_KEYS=4` # The number of items of thread specific data that can be retained
+
+63. `CONFIG_SDCLONE_DISABLE=y` # Disable cloning of all socket descriptors by task_create() when a new task is started.
+                        <br> If set all sockets will appear to be closed in the new task
+
+64. `CONFIG_NFILE_DESCRIPTORS=8` # The maximum number of file descriptors per task (one for each open)
+
+65. `CONFIG_NFILE_STREAMS=8` # The maximum number of streams that can be fopen'ed
+
+66. `CONFIG_NAME_MAX=32` # The maximum size of a file name
+
+67. `CONFIG_SIG_SIGUSR1=1` # Value of standard user signal 1 (SIGUSR1)
+
+68. `CONFIG_SIG_SIGUSR2=2` # Value of standard user signal 2 (SIGUSR2)
+
+69. `CONFIG_SIG_SIGALARM=3` # Value for the signal number used with POSIX timers (SIGALRM)
+
+70. `CONFIG_SIG_SIGCONDTIMEDOUT=16` # This non-standard signal number is used in the implementation of pthread_cond_timedwait()
+
+71. `CONFIG_PREALLOC_MQ_MSGS=4` # The number of pre-allocated messge structurs.  The system manages a pool of preallocated message 
+                            <br> structures to minimize dynamic allocations
+
+72. `CONFIG_MQ_MAXMSGSIZE=32` # Message strucutes are allocated with a fixed payload size given by this setting. 
+                            <br> NOTE this does not include other message structure overhead
+
+73. `CONFIG_IDLETHREAD_STACKSIZE=2048` # The size of the initial stack used by the IDLE thread. The IDLE thread is the thread that
+                            <br> performs the initial boot of the system up to the point where the start-up applicaiton is spawned and
+                            <br> there after the IDLE thread executes only when there is no other thread ready to run
+
+74. `CONFIG_USERMAIN_STACKSIZE=2048` # The size of the stack to allocate for the user initialization thread that is started as soon
+                            <br> as the OS completes initialization
+
+75. `CONFIG_PTHREAD_STACK_MIN=256` # Minimum pthread stack size
+
+76. `CONFIG_PTHREAD_STACK_DEFAULT=2048` # Default pthread stack size
+
+77. `CONFIG_DISABLE_POLL=y` # The size s of drives can be reduced in the poll() method is not supported.  If you do not use poll() or
+                            <br> select() then you can set DISABLE_POLL to true to reduce teh code footprint by a small amount.
+                          <br> this selection disables the poll() interface as well as interfaces tht derive from poll() such as select()
+
+78. `CONFIG_DEV_NULL=y` # Enables /dev/null
+
+79. `CONFIG_ARCH_HAVE_I2CRESET=y` # Set by the board selection
+
+80. `CONFIG_ARCH_HAVE_SPI_BITORDER=y` # Set by the board selection
+
+81. `CONFIG_SPI=y` # Set by the board selection, should be enabled by all platforms that support SPI interfaces
+
+82. `CONFIG_SPI_EXCHANGE=y` # SPI driver supports a single exchange method (vs a recvblock() and sndblock() methods)
+
+83. `CONFIG_SERIAL=y` # Front-end character drivers for chip-specific UARTs.  This provides some TTY-like functionality and are 
+                        <br> commonly used (but not required for) the NuttX system console
+
+84. `CONFIG_SERIAL_REMOVABLE=y` # Selected by CONFIG_CDCACM
+
+85 `CONFIG_USART2_SERIALDRIVER=y` # Selected by board selection, enables USART 2 as serial
+
+86. `CONFIG_MCU_SERIAL=y` # Selected elsewhere dependency for some others
+
+87. `CONFIG_STANDARD_SERIAL=y` # Enable the standard, upper-half serial driver used by most MCU serial peripherals
+
+89. `CONFIG_ARCH_HAVE_SERIAL_TERMIOS=y` # Selected by board selection
+
+90. `CONFIG_NO_SERIAL_CONSOLE=y` # No serial console
+
+91. `CONFIG_USART2_RXBUFSIZE=256` # Characters are buffered as they are received.  This specifies the size of the recieve buffer
+
+92. `CONFIG_USART2_TXBUFSIZE=256` # Characters are buffered as they are sent, this specifies the size of the transmit buffer
+
+93. `CONFIG_USART2_BAUD=115200` # The configured BAUD of USART 2
+
+94. `CONFIG_USART2_BITS=8` # The number of data bits, must be 7 or 8
+
+95. `CONFIG_USART2_PARITY=0` # The number of parity bits, 0 = no parity, 1 = odd parity, 2 = even parity
+
+96. `CONFIG_USART2_2STOP=0` # Stop bits, 1 = Two stop bits
+
+97. `CONFIG_USBDEV=y` # Enables USB device drivers
+
+98. `CONFIG_USBDEV_SELFPOWERED=y` # Will cause USB features to indicate that the device is self-powered
+
+99. `CONFIG_USBDEV_MAXPOWER=100` # Maximum power consumption in mA.  This selection should only apply if the device is bus powered as
+                            <br> set by USBDEV_BUSPOWERED. It is however used unconditionally in several USB device drivers
+
+100. `CONFIG_CDCACM=y` # Enables USB Modem (CDC/ACM) support
+
+101. `CONFIG_CDCACM_CONSOLE=y` # Register the USB device as /dev/console so that it will be used as the console device
+
+102. `CONFIG_CDCACM_EP0MAXPACKET=64` # Endpoint 0 max packet size
+
+103. `CONFIG_CDCACM_EPINTIN=1` # The logical 7-bit address of a hardware endpoint that supports interrupt IN operation
+
+104. `CONFIG_CDCACM_EPINTIN_FSSIZE=64` # Max package size for the interrupt IN endpoint if full speed mode
+
+105. `CONFIG_CDCACM_EPINTIN_HSSIZE=64` # Max package size for the interrupt IN endpoint if in high speed mode
+
+106. `CONFIG_CDCACM_EPBULKOUT=3` # The logical 7-bit address of a hardware endpoint that supports bulk OUT operation
+
+107. `CONFIG_CDCACM_EPBULKOUT_FSSIZE=64` # Max package size for the bulk OUT endpoint if in full speed mode
+
+108. `CONFIG_CDCACM_EPBULKOUT_HSSIZE=512` # Max package size for the bulk OUT endpoint if in high speed mode
+
+109. `CONFIG_CDCACM_EPBULKIN=2` # The logical 7-bit address of a hardware endpoint that supports bulk IN operation
+
+110. `CONFIG_CDCACM_EPBULKIN_FSSIZE=64` # Max package size for the bulk IN endpoint if in full speed mode
+
+111. `CONFIG_CDCACM_EPBULKIN_HSSIZE=512` # Max package size for the bulk IN endpoint if in high speed mode
+
+112. `CONFIG_CDCACM_NRDREQS=4` # The number of read requests that can be in flight
+
+113. `CONFIG_CDCACM_NWRREQS=4` # The number of write requests that can be in flight
+
+114. `CONFIG_CDCACM_BULKIN_REQLEN=96` # Size of one write request buffer.  Ideally the BULKOUT reques size should *not* be the 
+                            <br> same size as the maxpacket size. That is because IN transfers of exactly the max packet size
+                            <br> will be followed by a NULL packet.  The BULKOUT request buffer size is always the same as the
+                            <br> max packet size.
+
+115. `CONFIG_CDCACM_RXBUFSIZE=256` # Recieve buffer size. The actual amout of data that can be held in the buffer is  this number
+                                <br> minus one due to the way that the circualr buffer is managed.  So an RX buffer size of 257
+                                <br> will hold four full-speed, 64 byte packets.  A buffer size of 513 will hold one high-speed 
+                                <br> 512 byte packet
+
+115. `CONFIG_CDCACM_TXBUFSIZE=256` # Transmit buffer size. The actual amout of data that can be held in the buffer is  this number
+                                <br> minus one due to the way that the circualr buffer is managed.  So a TX buffer size of 769 
+                                <br> will hold one request of size 768 and a buffer size of 193 will hold two requests of size 96
+
+116. `CONFIG_CDCACM_VENDORID=0x0525` # The vendor ID code/string.  Default 0x0525 and "NuttX".  0x0525 is the Netchip vendor and 
+                                <br> should not be used in any products.  This default VID was selected for compatibility with the
+                                <br> linux CDC ACM default VID
+
+117. `CONFIG_CDCACM_PRODUCTID=0xa4a7` # Default 0xa4a7 and "CDC/ACM Serial"
+
+118. `CONFIG_CDCACM_VENDORSTR="NuttX"` # Default USB vendor string
+
+119. `CONFIG_CDCACM_PRODUCTSTR="CDC/ACM Serial"` # Default USB product string
+
+120. `CONFIG_SYSLOG_CHAR=y` # Enable the generic character device for the SYSLOG.  The full path to the SYSLOG device is provided by
+                        <br> SYSLOG_DEVPATH.  A valid character device (or file) must exist at this path.  It will be opened
+                        <br> by syslog_initialize
+
+121. `CONFIG_SYSLOG_CHAR_CRLF=y` # Pre-pend a carraig return before every linefeed that goes to the character device
+
+122. `CONFIG_SYSLOG_DEVPATH="/dev/ttyS0"` # The full path to the system logging device
+
+123. `CONFIG_FS_READABLE=y` # Automatically selected if any readable file system is selected
+
+124. `CONFIG_FS_MQUEUE_MPATH="/var/mqueue"` # The path to where POSIX message queues will exist in the VFS namespace
+
+125. `CONFIG_FS_PROCFS=y` # The PROCFS file system provides access to task status and other driver status through the NuttX file system
+                        <br> the PROCFS may, for example, be mounted at /proc.  Then information about all of the currently active
+                        <br> tasks and threads will be available in /proc
+
+126. `CONFIG_MM_REGIONS=2` # If th architecute includes multiple, non-contiguous regions of memory to allocate from this specifies
+                            <br> the number of memory regions that the memory manager must handle and enables the API
+                            <br> mm_addregion(heap, start, end)
+
+127. `CONFIG_BUILTIN=y` # Enable support for builtin applications. This feature assigns a string name to an application. In addition
+                        <br> if FS_BINFS is defined retaining those names in a file system from which they can be executed.  This
+                        <br> feature is also the underlying requirement to support built-n application in the NuttShell.
+                        <br> NOTE: this feature is highly coupled with logic in the apps/ sub-directory and as a consequence cannont be 
+                        <br> used in environments that do not include the standard NuttX apps/ nor in build configurations using
+                        <br> either BUILD_PROTECTED or BUILD_KERNEL
+
+128. `
+

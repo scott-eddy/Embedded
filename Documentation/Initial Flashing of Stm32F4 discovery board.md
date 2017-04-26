@@ -110,6 +110,8 @@ On successful exit of make you will have a binary file nuttx.bin which can be fl
 board with:
 `st-flash write nuttx.bin 0x8000000`
 
-## What Just happened?
-All of the configuration that was just flashed to the board can be found in 
-[Initial Flash Configuration Explained.md](Initial\ Flash\ Configuration\ Explained.md)
+
+## Now what
+Once you have flashed NuttX successfully you will obviously want to test it's functionality and
+understand exactly what just happened.  These questions (and more) are addressed in the
+[Testing Initial Flash Documentation](Testing\ Initital\ Flash.md)

@@ -462,5 +462,151 @@ If the interrupt stack is selected, on the other hand, then the interrupt handle
                         <br> used in environments that do not include the standard NuttX apps/ nor in build configurations using
                         <br> either BUILD_PROTECTED or BUILD_KERNEL
 
-128. `
+128. `CONFIG_STDIO_BUFFER_SIZE=64` # Size of buffers using within the C buffered I/O interfaces 
+                        <br> (printf, putchar, fwrite, etc.). This function sets the initial 
+                        <br> I/O buffer size. Zero disables I/O buffering initially. Any 
+                        <br> buffer size may be subsequently modified using setvbuf(). 
+
+129. `CONFIG_STDIO_LINEBUFFER=y` # Sets the default behavior to flush buffered I/O whenever 
+                        <br> a newline character is found in the output data stream. This 
+                        <br> setting just sets the initial default behavior of all streams. 
+                        <br> The behavior of an individual stream can be changed via setvbuf().
+
+130. `CONFIG_NUNGET_CHARS=2` # Number of characters that can be buffered by ungetc() 
+
+131. `CONFIG_LIBC_LONG_LONG=y` # Enables support for long long formats in printf, sscanf, etc. 
+                            <br> This is enabled by default but if you are trying to reduce 
+                            <br> the FLASH footprint, then disabling this feature is one option. 
+                            <br> The FLASH saves comes not from disabling the long long formats, 
+                            <br> but rather from omitting the large long long arithmetic 
+                            <br> libraries that will be drawn into the build if long long 
+                            <br> support is enabled.
+
+132. `CONFIG_EOL_IS_EITHER_CRLF=y` # EOL is CR or LF
+
+133. `CONFIG_ARCH_LOWPUTC=y` # architecture supports low-level, boot time console output
+
+134. `CONFIG_LIB_RAND_ORDER=1` # The order of the random number generator. 1=fast but very 
+                            <br> bad random numbers, 3=slow but very good random numbers.
+
+135. `CONFIG_LIB_HOMEDIR="/"`` # The home directory to use with operations like such as 'cd ~'
+
+135. `CONFIG_POSIX_SPAWN_PROXY_STACKSIZE=1024` # If posix_spawn[p]() and task_spawn() use I/O 
+                            <br> redirection options, they will require an intermediary/proxy 
+                            <br> task to muck with the file descriptors. This configuration 
+                            <br> item specifies the stack size used for the proxy.
+
+136. `CONFIG_TASK_SPAWN_DEFAULT_STACKSIZE=2048` # The actual size to use for the child task's 
+                            <br> stack can be set with task_spawnattr_setstacksize(). This
+                            <br> value specifies the default stack size to use if 
+                            <br> task_spawnattr_setstacksize() is not used.
+
+137. `CONFIG_ARCH_HAVE_TLS=y` # Architecture supports thread local storage
+
+138. `CONFIG_LIB_SENDFILE_BUFSIZE=512` #  Size of the I/O buffer to allocate in sendfile()
+
+139. `CONFIG_HAVE_CXX=y` # Toolchain supports C++ and CXX, CXXFLAGS, and COMPILEXX have been 
+                            <br> defined in the configurations Make.defs file
+
+140. `CONFIG_HAVE_CXXINITIALIZE=y` # The platform-specific logic includes support for 
+                            <br> initialization of static C++ instances for this architecture 
+                            <br> and for the selected toolchain (via up_cxxinitialize()).
+
+141. `CONFIG_BUILTIN_PROXY_STACKSIZE=1024` # If exec_builtin uses I/O redirection options it will 
+                            <br> require an intermediary/proxy task to muck with the file 
+                            <br> descriptors. This configuration item specifies the stack size 
+                            <br> used for the proxy
+
+142. `CONFIG_EXAMPLES_NSH=y` # Enable the NuttShell (NSH) example
+
+143. `CONFIG_EXAMPLES_NSH_CXXINITIALIZE=y` # If HAVE_CXX and HAVE_CXXINITIALIZE are slected, then 
+                            <br> this NSH example can be configured to initialize C++ constructors
+                            <br> when it is started. NSH does not use C++ and, by default, 
+                            <br> assumes that constructors are initialized elsewhere. However, 
+                            <br> you can force NSH to initialize constructors by setting this 
+                            <br> option.
+
+144. `CONFIG_NSH_LIBRARY=y` # Build the NSH support library. This is used, for example, by 
+                            <br> examples/nsh in order to implement the full NuttShell (NSH).
+
+145. `CONFIG_NSH_READLINE=y` # Selects the minimal implementation of readline(). This minimal 
+                            <br> implementation provides on backspace for command line editing.
+
+146. `CONFIG_NSH_LINELEN=64` # The maximum length of one command line and of one output line.
+
+147. `CONFIG_NSH_CMDPARMS=y` # If selected, then the output from commands, from file applications
+                            <br> and from NSH built-in commands can be used as arguments to other 
+                            <br>commands. The entity to be executed is identified by enclosing the
+                            <br> command line in back quotes. For example,
+```
+set FOO `myprogram $BAR`
+```
+Will execute the program named myprogram passing it the value of the environment variable BAR.
+<br> The value of the environment variable FOO is then set output of myprogram on stdout.
+<br> Because this feature commits significant resources, it is disabled by default.
+
+148. `CONFIG_NSH_MAXARGUMENTS=6` # The maximum number of NSH command arguments. 
+
+149. `CONFIG_NSH_ARGCAT=y` # Support concatenation of strings with environment variables or 
+                            <br> command output. For example:
+```
+set FOO XYZ
+set BAR 123
+set FOOBAR ABC_${FOO}_${BAR}
+```
+would set the environment variable FOO to XYZ, BAR to 123 and FOOBAR to ABC_XYZ_123. If
+<br> NSH_ARGCAT is not selected, then a slightly small FLASH footprint results but then also only
+<br> simple environment variables like $FOO can be used on the command line.
+
+150. `CONFIG_NSH_NESTDEPTH=3` # The maximum number of nested if-then[-else]-fi sequences that 
+                            <br> are permissable. 
+
+151. `CONFIG_NSH_BUILTIN_APPS=y` # Support external registered, "built-in" applications that can 
+                            <br> be executed from the NSH command line  (see apps/README.txt for 
+                            <br> more information). This options requires support for builtin 
+                            <br> applications (BUILTIN).
+
+152. `CONFIG_NSH_DISABLE_DATE=y` # TODO what is DATE
+
+153. `CONFIG_NSH_DISABLE_LOSMART=y` # TODO what is LOSMART
+
+154. `CONFIG_NSH_DISABLE_PRINTF=y` # Disables printf()
+
+155. `CONFIG_NSH_MMCSDMINOR=0` # If board-specific NSH start-up logic needs to mount an 
+                            <br> MMC/SD device, then the setting should be provided to identify 
+                            <br> the MMC/SD minor device number (i.e., the N ini /dev/mmcsdN).
+
+156. `CONFIG_NSH_CMDOPT_DF_H=y` # df: Enable [-h] man-readable format
+
+157. `CONFIG_NSH_CODECS_BUFSIZE=128` # File buffer size used by CODEC commands
+
+158. `CONFIG_NSH_CMDOPT_HEXDUMP=y` # hexdump: Enable 'skip' and 'count'
+
+159. `CONFIG_NSH_PROC_MOUNTPOINT="/proc"` # procfs mountpoint
+
+160. `CONFIG_NSH_FILEIOSIZE=512` # Size of a static I/O buffer used for file access 
+                            <br> (ignored if there is no filesystem)
+
+161. `CONFIG_NSH_CONSOLE=y` # If NSH_CONSOLE is set to 'y', then a character driver console 
+                            <br> front-end is selected (/dev/console). Normally, the serial 
+                            <br> console device is a UART and RS-232 interface. However, if 
+                            <br> USBDEV is defined, then a USB serial device may, instead, be 
+                            <br> used if the one of the following are defined: PL2303 and 
+                            <br> PL2303_CONSOLE - Set up the Prolifics PL2303 emulation as a 
+                            <br> console device at /dev/console. CDCACM and CDCACM_CONSOLE - 
+                            <br> Set up the CDC/ACM serial device as a console device at 
+                            <br> dev/console. NSH_USBCONSOLE and NSH_USBCONDEV - Sets up some 
+                            <br> other USB serial device as the NSH console (not necessarily 
+                            <br> dev/console).
+
+162. `CONFIG_NSH_ARCHINIT=y` # Set if your board provides architecture specific initialization 
+                            <br> via the board-interface function boardctl(). The boardctl() 
+                            <br> function will be called early in NSH initialization to allow 
+                            <br> board logic to do such things as configure MMC/SD slots. 
+
+163. `CONFIG_READLINE_HAVE_EXTMATCH=y` # Set by CONFIG_NSH_LIBRARY TODO needs more documentation
+
+164. `CONFIG_SYSTEM_READLINE=y` # SET by CONFIG_NSH_READLINE TODO needs more documentation
+
+165. `CONFIG_READLINE_ECHO=y` # TODO needs documentation
 

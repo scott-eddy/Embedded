@@ -1,6 +1,6 @@
 # Initial Flash Parameters
 This document explains what NuttX configuration parameters are set when following
-the instructions detailed in [Initial Flashing of Stm32F4 dicovery board](Initial\ Flashing\ of\ Stm32F4\ discovery\ board.md)
+the instructions detailed in [Initial Flashing of Stm32F4 dicovery board](Initial_Flashing_of_Stm32F4_discovery_board.md)
 
 1. `CONFIG_HOST_OSX=y` # We are flashing from a Mac
 
@@ -8,7 +8,7 @@ the instructions detailed in [Initial Flashing of Stm32F4 dicovery board](Initia
                                 <br>"Apps"
 
 3. `CONFIG_BUILD_FLAT=y` # All applications are built as one single executable blob
-                           <br> see [NuttX Configuration Notes](NuttX\ Configuration\ Notes.md) for more details 
+                           <br> see [NuttX Configuration Notes](NuttX_Configuration_Notes.md) for more details 
 
 4. `CONFIG_INTELHEX_BINARY=y` # A hex binary (.hex) will be generated with make
 

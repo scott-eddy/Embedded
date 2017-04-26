@@ -114,4 +114,4 @@ board with:
 ## Now what
 Once you have flashed NuttX successfully you will obviously want to test it's functionality and
 understand exactly what just happened.  These questions (and more) are addressed in the
-[Testing Initial Flash Documentation](Testing Initital Flash.md)
+[Testing Initial Flash Documentation](Documentation/Testing\ Initital\ Flash.md)

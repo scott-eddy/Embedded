@@ -1,6 +1,10 @@
-# The STM 32F4 Arrived 4/13/2017
-The board looks great
-TODO: picture here
+# The STM 32F4 Discovery board and NuttX
+The [STM32F4 Discovery Board](http://www.st.com/en/evaluation-tools/stm32f4discovery.html) is a 
+commercially available microcontroller development board.  The board houses an STM32f407VG MCU
+which can be flashed with the [NuttX](http://www.nuttx.org/) operating system.  The RTOS is 
+compatible with the board "out of the box" and this document will go through generating a 
+build environement (on OSX), building NuttX, and flashing it to your discovery board.  It 
+finsihes by pointing the user to further documentation on the details of what was flashed.
 
 ## Dependencies 
 [STLink](https://github.com/texane/stlink) is needed for flashing the discovery board.  It can easily be installed with homebrew:

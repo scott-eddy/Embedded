@@ -5,5 +5,7 @@ I would like to flesh out my understanding of NuttX, especially how it can be us
 existing documentation for NuttX is difficult to sort through and this is my attempt to make
 sense of it all.
 
+If you are just getting started with NuttX as well take a look at the [getting started documentation](Documentation/GettingStarted)
+
 ## Future work
 Pie in the sky ideas for this repo will be added to Projects.
